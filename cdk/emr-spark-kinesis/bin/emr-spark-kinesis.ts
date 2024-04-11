@@ -2,9 +2,12 @@
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
 import { EmrSparkKinesisStack } from '../lib/emr-spark-kinesis-stack';
+import { AwsSolutionsChecks } from 'cdk-nag'
 import {DefaultStackSynthesizer} from "aws-cdk-lib";
+import { Aspects } from 'aws-cdk-lib';
 
 const app = new cdk.App();
+Aspects.of(app).add(new AwsSolutionsChecks({ verbose: true }))
 new EmrSparkKinesisStack(app, 'EmrSparkKinesisStack', {
     synthesizer: new DefaultStackSynthesizer({
         generateBootstrapVersionRule: false
