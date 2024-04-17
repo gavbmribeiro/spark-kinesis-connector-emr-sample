@@ -107,7 +107,7 @@ export class EmrSparkKinesisStack extends cdk.Stack {
       jobFlowRole: emrInstanceProfile.instanceProfileName!,
       name: "emr-spark-kinesis",
       serviceRole: emrServiceRole.roleName,
-      releaseLabel: 'emr-6.14.0',
+      releaseLabel: 'emr-7.1.0',
       instances: {
         coreInstanceGroup: {
           instanceType: "m5.xlarge",
@@ -128,15 +128,6 @@ export class EmrSparkKinesisStack extends cdk.Stack {
         {
           name: 'Hadoop'
         }],
-      steps: [{
-        actionOnFailure: "CONTINUE",
-        hadoopJarStep: {
-          jar: "command-runner.jar",
-          args: ['bash', '-c',"wget https://data-streaming-labs.s3.amazonaws.com/emr-spark-kinesis-sample/spark-kinesis.sh; sh spark-kinesis.sh"]
-        },
-        name: 'kinesis-connector-setup'
-        }
-      ]
     })
 
     cfnCluster.node.addDependency(emrInstanceProfile)
